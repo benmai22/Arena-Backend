@@ -1,0 +1,288 @@
+openapi: 3.0.0
+info:
+  title: PARCEL DELIVERY API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://parcel-delivery.herokuapp.com/api/v1
+    variables: {}
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: signup
+      operationId: signup
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/signuprequest"
+            example:
+              name: teeqah
+              email: tee15@gmail.com
+              password: "123456"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginrequest"
+            example:
+              email: Mosh13@gmail.com
+              password: "123456"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /parcels:
+    get:
+      tags:
+        - Parcels
+      summary: Get All Parcels
+      operationId: GetAllParcels
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - Parcels
+      summary: create parcel
+      operationId: createparcel
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createparcelrequest"
+            example:
+              destination: dubai
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /parcels/user:
+    get:
+      tags:
+        - Parcels
+      summary: Get user Parcel
+      operationId: GetuserParcel
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /parcels/{id}/destination:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The parcel ID
+    put:
+      tags:
+        - Parcels
+      summary: Update destination
+      operationId: Updatedestination
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatedestinationRequest"
+            example:
+              destination: tokyo
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /parcels/{id}/status:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The parcel ID
+    put:
+      tags:
+        - Parcels
+      summary: Update Status
+      operationId: UpdateStatus
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStatusRequest"
+            example:
+              status: in-transit
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /parcels/{id}/presentLocation:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The parcel ID
+    put:
+      tags:
+        - Parcels
+      summary: Update Location
+      operationId: UpdateLocation
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLocationRequest"
+            example:
+              presentLocation: china
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /parcels/{id}/delete:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The parcel ID
+    delete:
+      tags:
+        - Parcels
+      summary: Delete parcel
+      operationId: Deleteparcel
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    signuprequest:
+      title: signuprequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: teeqah
+        email: tee15@gmail.com
+        password: "123456"
+    loginrequest:
+      title: loginrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: Mosh13@gmail.com
+        password: "123456"
+    createparcelrequest:
+      title: createparcelrequest
+      required:
+        - destination
+      type: object
+      properties:
+        destination:
+          type: string
+      example:
+        destination: dubai
+    UpdatedestinationRequest:
+      title: UpdatedestinationRequest
+      required:
+        - destination
+      type: object
+      properties:
+        destination:
+          type: string
+      example:
+        destination: tokyo
+    UpdateStatusRequest:
+      title: UpdateStatusRequest
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: string
+      example:
+        status: in-transit
+    UpdateLocationRequest:
+      title: UpdateLocationRequest
+      required:
+        - presentLocation
+      type: object
+      properties:
+        presentLocation:
+          type: string
+      example:
+        presentLocation: china
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: Auth
+    description: ""
+  - name: Parcels
+    description: ""
